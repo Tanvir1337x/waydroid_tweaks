@@ -25,7 +25,6 @@ service bootanim /system/bin/bootanimation
     oneshot
     ioprio rt 0
     task_profiles MaxPerformance
-    
 """
     bootanim_component = f"""
 on post-fs-data
@@ -46,13 +45,13 @@ on property:vold.decrypt=trigger_restart_framework
 on property:sys.boot_completed=1
     mkdir /data/adb/magisk 755
     exec u:r:su:s0 root root -- /dev/magisk_iqeoVo2mDrO/magisk --auto-selinux --boot-complete
-   
+
 on property:init.svc.zygote=restarting
     exec u:r:su:s0 root root -- /dev/magisk_iqeoVo2mDrO/magisk --auto-selinux --zygote-restart
-   
+
 on property:init.svc.zygote=stopped
     exec u:r:su:s0 root root -- /dev/magisk_iqeoVo2mDrO/magisk --auto-selinux --zygote-restart
-    """
+"""
 
     def download(self):
         if os.path.isfile(self.download_loc):
