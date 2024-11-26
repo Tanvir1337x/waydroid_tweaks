@@ -1,5 +1,4 @@
 class Logger:
-
     @staticmethod
     def error(str):
         print("\033[31m" + "ERROR: " + str + "\033[0m")
