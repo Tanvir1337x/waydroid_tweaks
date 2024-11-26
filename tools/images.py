@@ -1,6 +1,5 @@
 import configparser
 import os
-import subprocess
 import sys
 from tools.helper import run
 from tools.logger import Logger

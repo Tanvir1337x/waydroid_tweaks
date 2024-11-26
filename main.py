@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
-from InquirerPy.separator import Separator
 import argparse
 import os
 from typing import List
