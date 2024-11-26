@@ -15,25 +15,25 @@ class MicroG(General):
         "org.microg.nlp.backend.ichnaea_20036.apk": "0b3cb65f8458d1a5802737c7392df903",
         "org.microg.nlp.backend.nominatim_20042.apk": "88e7397cbb9e5c71c8687d3681a23383",
     }
-    microg_apks= {
+    microg_apks = {
         "com.google.android.gms-223616054.apk": "a945481ca5d33a03bc0f9418263c3228",
         "com.google.android.gsf-8.apk": "b2b4ea3642df6158e14689a4b2a246d4",
         "com.android.vending-22.apk": "6815d191433ffcd8fa65923d5b0b0573",
-        "org.microg.gms.droidguard-14.apk": "4734b41c1a6bc34a541053ddde7a0f8e"
+        "org.microg.gms.droidguard-14.apk": "4734b41c1a6bc34a541053ddde7a0f8e",
     }
     priv_apps = ["com.google.android.gms", "com.android.vending"]
     dl_links = {
         "Standard": [
             "https://github.com/ayasa520/MinMicroG/releases/download/latest/MinMicroG-Standard-2.11.1-20230429100529.zip",
-            "0fe332a9caa3fbb294f2e2b50f720c6b"
+            "0fe332a9caa3fbb294f2e2b50f720c6b",
         ],
         "NoGoolag": [
             "https://github.com/ayasa520/MinMicroG/releases/download/latest/MinMicroG-NoGoolag-2.11.1-20230429100545.zip",
-            "ff920f33f4c874eeae4c0444be427c68"
+            "ff920f33f4c874eeae4c0444be427c68",
         ],
         "UNLP": [
             "https://github.com/ayasa520/MinMicroG/releases/download/latest/MinMicroG-UNLP-2.11.1-20230429100555.zip",
-            "6136b383153c2a6797d14fb4d7ca3f97"
+            "6136b383153c2a6797d14fb4d7ca3f97",
         ],
         "Minimal": [
             "https://github.com/ayasa520/MinMicroG/releases/download/latest/MinMicroG-Minimal-2.11.1-20230429100521.zip"
@@ -42,14 +42,14 @@ class MicroG(General):
         "MinimalIAP": [
             "https://github.com/ayasa520/MinMicroG/releases/download/latest/MinMicroG-MinimalIAP-2.11.1-20230429100556.zip"
             "cc071f4f776cbc16c4c1f707aff1f7fa"
-        ]
+        ],
     }
     dl_link = ...
     act_md5 = ...
     dl_file_name = ...
     sdk = ...
     extract_to = "/tmp/microg/extract"
-    rc_content = '''
+    rc_content = """
 on property:sys.boot_completed=1
     start microg_service
 
@@ -57,7 +57,7 @@ service microg_service /system/bin/sh /system/bin/npem
     user root
     group root
     oneshot
-    '''
+    """
     files = [
         "priv-app/GoogleBackupTransport",
         "priv-app/MicroGUNLP",
@@ -107,8 +107,8 @@ service microg_service /system/bin/sh /system/bin/npem
         super().__init__()
         self.dl_link = self.dl_links[variant][0]
         self.act_md5 = self.dl_links[variant][1]
-        self.id = self.id+f"-{variant}"
-        self.dl_file_name = f'MinMicroG-{variant}.zip'
+        self.id = self.id + f"-{variant}"
+        self.dl_file_name = f"MinMicroG-{variant}.zip"
         if android_version == "11":
             self.sdk = 30
         elif android_version == "13":
@@ -128,14 +128,20 @@ service microg_service /system/bin/sh /system/bin/npem
             flag = False
             dir_name = os.path.basename(root)
             # 遍历文件
-            if dir_name.startswith('-') and dir_name.endswith('-'):
+            if dir_name.startswith("-") and dir_name.endswith("-"):
                 archs, sdks = [], []
                 for i in dir_name.split("-"):
                     if i.isdigit():
                         sdks.append(i)
                     elif i:
                         archs.append(i)
-                if len(archs) != 0 and arch not in archs and sub_arch not in archs or len(sdks) != 0 and str(self.sdk) not in sdks:
+                if (
+                    len(archs) != 0
+                    and arch not in archs
+                    and sub_arch not in archs
+                    or len(sdks) != 0
+                    and str(self.sdk) not in sdks
+                ):
                     continue
                 else:
                     flag = True
@@ -143,11 +149,16 @@ service microg_service /system/bin/sh /system/bin/npem
             for file in files:
                 src_file_path = os.path.join(root, file)
                 if not flag:
-                    dst_file_path = os.path.join(dst_dir, os.path.relpath(
-                        src_file_path, src_dir))
+                    dst_file_path = os.path.join(
+                        dst_dir, os.path.relpath(src_file_path, src_dir)
+                    )
                 else:
-                    dst_file_path = os.path.join(dst_dir, os.path.relpath(
-                        os.path.join(os.path.dirname(root), file), src_dir))
+                    dst_file_path = os.path.join(
+                        dst_dir,
+                        os.path.relpath(
+                            os.path.join(os.path.dirname(root), file), src_dir
+                        ),
+                    )
                 if not os.path.exists(os.path.dirname(dst_file_path)):
                     os.makedirs(os.path.dirname(dst_file_path))
                 # Logger.info(f"{src_file_path} -> {dst_file_path}")

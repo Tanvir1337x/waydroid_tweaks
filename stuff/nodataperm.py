@@ -10,14 +10,13 @@ from tools import container
 class Nodataperm(General):
     id = "nodataperm"
     dl_links = {
-        "11":
-        {
+        "11": {
             "x86_64": [
                 "https://github.com/ayasa520/hack_full_data_permission/archive/d4beab7780eb792059d33e77d865579c9ee41546.zip",
-                "b0e3908ffcf5df8ea62f4929aa680f1a"
+                "b0e3908ffcf5df8ea62f4929aa680f1a",
             ],
         },
-        "13": {}
+        "13": {},
     }
     dl_file_name = "nodataperm.zip"
     extract_to = "/tmp/nodataperm"
@@ -42,30 +41,40 @@ class Nodataperm(General):
     def copy(self):
         name = re.findall("([a-zA-Z0-9]+)\.zip", self.dl_link)[0]
         extract_path = os.path.join(
-            self.extract_to, f"hack_full_data_permission-{name}")
+            self.extract_to, f"hack_full_data_permission-{name}"
+        )
         if not container.use_overlayfs():
             services_jar = os.path.join(
-                self.copy_dir, self.partition, "framework", "services.jar")
+                self.copy_dir, self.partition, "framework", "services.jar"
+            )
             services_jar_prof = os.path.join(
-                self.copy_dir, self.partition, "framework", "services.jar.prof")
+                self.copy_dir, self.partition, "framework", "services.jar.prof"
+            )
             services_jar_bprof = os.path.join(
-                self.copy_dir, self.partition, "framework", "services.jar.bprof")
+                self.copy_dir, self.partition, "framework", "services.jar.bprof"
+            )
             backup(services_jar)
             backup(services_jar_prof)
             backup(services_jar_bprof)
 
         Logger.info(f"Copying {self.id} library files ...")
-        shutil.copytree(extract_path, os.path.join(
-            self.copy_dir, self.partition), dirs_exist_ok=True)
+        shutil.copytree(
+            extract_path,
+            os.path.join(self.copy_dir, self.partition),
+            dirs_exist_ok=True,
+        )
 
     def extra2(self):
         if not container.use_overlayfs():
             services_jar = os.path.join(
-                self.copy_dir, self.partition, "framework", "services.jar")
+                self.copy_dir, self.partition, "framework", "services.jar"
+            )
             services_jar_prof = os.path.join(
-                self.copy_dir, self.partition, "framework", "services.jar.prof")
+                self.copy_dir, self.partition, "framework", "services.jar.prof"
+            )
             services_jar_bprof = os.path.join(
-                self.copy_dir, self.partition, "framework", "services.jar.bprof")
+                self.copy_dir, self.partition, "framework", "services.jar.bprof"
+            )
             restore(services_jar)
             restore(services_jar_prof)
             restore(services_jar_bprof)

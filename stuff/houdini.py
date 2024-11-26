@@ -9,7 +9,10 @@ class Houdini(General):
     id = "libhoudini"
     partition = "system"
     dl_links = {
-        "11": ["https://github.com/supremegamers/vendor_intel_proprietary_houdini/archive/81f2a51ef539a35aead396ab7fce2adf89f46e88.zip", "fbff756612b4144797fbc99eadcb6653"],
+        "11": [
+            "https://github.com/supremegamers/vendor_intel_proprietary_houdini/archive/81f2a51ef539a35aead396ab7fce2adf89f46e88.zip",
+            "fbff756612b4144797fbc99eadcb6653",
+        ],
         # "13": ["https://github.com/supremegamers/vendor_intel_proprietary_houdini/archive/978d8cba061a08837b7e520cd03b635af643ba08.zip", "1e139054c05034648fae58a1810573b4"]
     }
     act_md5 = ...
@@ -33,7 +36,7 @@ on property:ro.enable.native.bridge.exec=1
         "ro.dalvik.vm.native.bridge": "libhoudini.so",
         "ro.enable.native.bridge.exec": "1",
         "ro.dalvik.vm.isa.arm": "x86",
-        "ro.dalvik.vm.isa.arm64": "x86_64"
+        "ro.dalvik.vm.isa.arm64": "x86_64",
     }
     files = [
         "bin/arm",
@@ -45,7 +48,7 @@ on property:ro.enable.native.bridge.exec=1
         "lib/arm",
         "lib/libhoudini.so",
         "lib64/arm64",
-        "lib64/libhoudini.so"
+        "lib64/libhoudini.so",
     ]
 
     def __init__(self, android_version="11") -> None:
@@ -56,10 +59,16 @@ on property:ro.enable.native.bridge.exec=1
     def copy(self):
         Logger.info("Copying libhoudini library files ...")
         name = re.findall("([a-zA-Z0-9]+)\.zip", self.dl_link)[0]
-        shutil.copytree(os.path.join(self.extract_to, "vendor_intel_proprietary_houdini-" + name,
-                        "prebuilts"), os.path.join(self.copy_dir, self.partition), dirs_exist_ok=True)
+        shutil.copytree(
+            os.path.join(
+                self.extract_to, "vendor_intel_proprietary_houdini-" + name, "prebuilts"
+            ),
+            os.path.join(self.copy_dir, self.partition),
+            dirs_exist_ok=True,
+        )
         init_path = os.path.join(
-            self.copy_dir, self.partition, "etc", "init", "houdini.rc")
+            self.copy_dir, self.partition, "etc", "init", "houdini.rc"
+        )
         if not os.path.isfile(init_path):
             os.makedirs(os.path.dirname(init_path), exist_ok=True)
         with open(init_path, "w") as initfile:

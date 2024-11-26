@@ -32,7 +32,7 @@ def get_certified(args):
 
 
 def mount(partition, copy_dir):
-    img = os.path.join(images.get_image_dir(), partition+".img")
+    img = os.path.join(images.get_image_dir(), partition + ".img")
     mount_point = ""
     if partition == "system":
         mount_point = os.path.join(copy_dir)
@@ -43,9 +43,9 @@ def mount(partition, copy_dir):
 
 
 def resize(partition):
-    img = os.path.join(images.get_image_dir(), partition+".img")
-    img_size = int(os.path.getsize(img)/(1024*1024))
-    new_size = "{}M".format(img_size+500)
+    img = os.path.join(images.get_image_dir(), partition + ".img")
+    img_size = int(os.path.getsize(img) / (1024 * 1024))
+    new_size = "{}M".format(img_size + 500)
     Logger.info("Resizing {} to {}".format(img, new_size))
     images.resize(img, new_size)
 
@@ -161,7 +161,8 @@ def remove_app(args):
 
 def hack_option(args):
     Logger.warning(
-        "If these hacks cause any problems, run `sudo python main.py remove <hack_option>` to remove")
+        "If these hacks cause any problems, run `sudo python main.py remove <hack_option>` to remove"
+    )
 
     hack_list: List[General] = []
     options = args.option_name
@@ -208,7 +209,7 @@ def interact():
         choices=[
             Choice(name="Android 11", value="11"),
             Choice(name="Android 13", value="13"),
-            Choice(name="Exit", value=None)
+            Choice(name="Exit", value=None),
         ],
         default="11",
     ).execute()
@@ -217,21 +218,23 @@ def interact():
     args.android_version = android_version
     action = inquirer.select(
         message="Please select an action",
-        choices=[
-            "Install",
-            "Remove",
-            "Hack",
-            "Get Google Device ID to Get Certified"
-        ],
+        choices=["Install", "Remove", "Hack", "Get Google Device ID to Get Certified"],
         instruction="([↑↓]: Select Item)",
         default=None,
     ).execute()
     if not action:
         exit()
 
-    install_choices = ["gapps", "microg", "libndk", "magisk", "smartdock", "fdroidpriv",]
+    install_choices = [
+        "gapps",
+        "microg",
+        "libndk",
+        "magisk",
+        "smartdock",
+        "fdroidpriv",
+    ]
     hack_choices = []
-    if android_version=="11":
+    if android_version == "11":
         install_choices.extend(["libhoudini", "widevine"])
         hack_choices.extend(["nodataperm", "hidestatusbar"])
 
@@ -241,10 +244,9 @@ def interact():
             instruction="([\u2191\u2193]: Select Item. [Space]: Toggle Choice), [Enter]: Confirm",
             validate=lambda result: len(result) >= 1,
             invalid_message="should be at least 1 selection",
-            choices=install_choices
+            choices=install_choices,
         ).execute()
-        microg_variants = ["Standard", "NoGoolag",
-                           "UNLP", "Minimal", "MinimalIAP"]
+        microg_variants = ["Standard", "NoGoolag", "UNLP", "Minimal", "MinimalIAP"]
         if "microg" in apps:
             microg_variant = inquirer.select(
                 message="Select MicroG variant",
@@ -260,10 +262,10 @@ def interact():
             instruction="([\u2191\u2193]: Select Item. [Space]: Toggle Choice), [Enter]: Confirm",
             validate=lambda result: len(result) >= 1,
             invalid_message="should be at least 1 selection",
-            choices=[*install_choices, *hack_choices]
+            choices=[*install_choices, *hack_choices],
         ).execute()
         args.app = apps
-        args.microg_variant="Standard"
+        args.microg_variant = "Standard"
         remove_app(args)
     elif action == "Hack":
         apps = inquirer.checkbox(
@@ -271,7 +273,7 @@ def interact():
             instruction="([\u2191\u2193]: Select Item. [Space]: Toggle Choice), [Enter]: Confirm",
             validate=lambda result: len(result) >= 1,
             invalid_message="should be at least 1 selection",
-            choices=hack_choices
+            choices=hack_choices,
         ).execute()
         args.option_name = apps
         hack_option(args)
@@ -280,24 +282,38 @@ def interact():
 
 
 def main():
-    parser = argparse.ArgumentParser(description='''
+    parser = argparse.ArgumentParser(
+        description="""
     Does stuff like installing Gapps, installing Magisk, installing NDK Translation and getting Android ID for device registration.
-    Use -h  flag for help!''')
+    Use -h  flag for help!"""
+    )
 
-    subparsers = parser.add_subparsers(title="coomand", dest='command')
-    parser.add_argument('-a', '--android-version',
-                        dest='android_version',
-                        help='Specify the Android version',
-                        default="11",
-                        choices=["11", "13"])
+    subparsers = parser.add_subparsers(title="coomand", dest="command")
+    parser.add_argument(
+        "-a",
+        "--android-version",
+        dest="android_version",
+        help="Specify the Android version",
+        default="11",
+        choices=["11", "13"],
+    )
 
     # android command
     certified = subparsers.add_parser(
-        'certified', help='Get device ID to obtain Play Store certification')
+        "certified", help="Get device ID to obtain Play Store certification"
+    )
     certified.set_defaults(func=get_certified)
 
-    install_choices = ["gapps", "microg", "libndk", "libhoudini",
-                       "magisk", "mitm", "smartdock", "widevine"]
+    install_choices = [
+        "gapps",
+        "microg",
+        "libndk",
+        "libhoudini",
+        "magisk",
+        "mitm",
+        "smartdock",
+        "widevine",
+    ]
     hack_choices = ["nodataperm", "hidestatusbar"]
     micrg_variants = ["Standard", "NoGoolag", "UNLP", "Minimal", "MinimalIAP"]
     remove_choices = install_choices
@@ -305,7 +321,7 @@ def main():
     arg_template = {
         "dest": "app",
         "type": str,
-        "nargs": '+',
+        "nargs": "+",
         # "metavar":"",
     }
 
@@ -321,31 +337,41 @@ widevine: Add support for widevine DRM L3
     """
     # install and its aliases
     install_parser = subparsers.add_parser(
-        'install', formatter_class=argparse.RawTextHelpFormatter, help='Install an app')
+        "install", formatter_class=argparse.RawTextHelpFormatter, help="Install an app"
+    )
     install_parser.add_argument(
-        **arg_template, choices=install_choices, help=install_help)
-    install_parser.add_argument('-c', '--ca-cert',
-                                dest='ca_cert_file',
-                                help='[for mitm only] The CA certificate file (*.pem) to install',
-                                default=None)
+        **arg_template, choices=install_choices, help=install_help
+    )
+    install_parser.add_argument(
+        "-c",
+        "--ca-cert",
+        dest="ca_cert_file",
+        help="[for mitm only] The CA certificate file (*.pem) to install",
+        default=None,
+    )
     install_parser.set_defaults(func=install_app)
 
     # remove and its aliases
     remove_parser = subparsers.add_parser(
-        'remove', aliases=["uninstall"], help='Remove an app')
+        "remove", aliases=["uninstall"], help="Remove an app"
+    )
     remove_parser.add_argument(
-        **arg_template, choices=[*remove_choices, * hack_choices], help='Name of app to remove')
+        **arg_template,
+        choices=[*remove_choices, *hack_choices],
+        help="Name of app to remove"
+    )
     remove_parser.set_defaults(func=remove_app)
 
     # hack and its aliases
-    hack_parser = subparsers.add_parser('hack', help='Hack the system')
+    hack_parser = subparsers.add_parser("hack", help="Hack the system")
     hack_parser.add_argument(
-        'option_name', nargs="+", choices=hack_choices, help='Name of hack option')
+        "option_name", nargs="+", choices=hack_choices, help="Name of hack option"
+    )
     hack_parser.set_defaults(func=hack_option)
 
     args = parser.parse_args()
     args.microg_variant = "Standard"
-    if hasattr(args, 'func'):
+    if hasattr(args, "func"):
         args_dict = vars(args)
         helper.check_root()
         args.func(args)

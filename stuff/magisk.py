@@ -7,6 +7,7 @@ from tools.helper import download_file, get_data_dir, host
 from tools.logger import Logger
 from tools import container
 
+
 class Magisk(General):
     id = "magisk delta"
     partition = "system"
@@ -56,7 +57,9 @@ on property:init.svc.zygote=stopped
     def download(self):
         if os.path.isfile(self.download_loc):
             os.remove(self.download_loc)
-        Logger.info("Downloading latest Magisk-Delta to {} now ...".format(self.download_loc))
+        Logger.info(
+            "Downloading latest Magisk-Delta to {} now ...".format(self.download_loc)
+        )
         download_file(self.dl_link, self.download_loc)
 
     # require additional setup
@@ -64,7 +67,11 @@ on property:init.svc.zygote=stopped
         Logger.info("Additional setup")
         magisk_absolute_dir = os.path.join(self.copy_dir, self.magisk_dir)
         data_dir = get_data_dir()
-        shutil.copytree(magisk_absolute_dir, os.path.join(data_dir, "adb", "magisk"), dirs_exist_ok=True)
+        shutil.copytree(
+            magisk_absolute_dir,
+            os.path.join(data_dir, "adb", "magisk"),
+            dirs_exist_ok=True,
+        )
 
     def copy(self):
         magisk_absolute_dir = os.path.join(self.copy_dir, self.magisk_dir)
@@ -75,33 +82,39 @@ on property:init.svc.zygote=stopped
             os.makedirs(os.path.join(self.copy_dir, "sbin"), exist_ok=True)
 
         Logger.info("Copying magisk libs now ...")
-        
+
         lib_dir = os.path.join(self.extract_to, "lib", self.arch[0])
         for parent, dirnames, filenames in os.walk(lib_dir):
             for filename in filenames:
-                o_path = os.path.join(lib_dir, filename)  
-                filename = re.search('lib(.*)\.so', filename)
+                o_path = os.path.join(lib_dir, filename)
+                filename = re.search("lib(.*)\.so", filename)
                 n_path = os.path.join(magisk_absolute_dir, filename.group(1))
                 shutil.copyfile(o_path, n_path)
-        shutil.copyfile(self.download_loc, os.path.join(magisk_absolute_dir,"magisk.apk") )
-        shutil.copytree(os.path.join(self.extract_to, "assets", "chromeos"), os.path.join(magisk_absolute_dir, "chromeos"), dirs_exist_ok=True)
-        assets_files = [
-            "addon.d.sh",
-            "boot_patch.sh",
-            "stub.apk",
-            "util_functions.sh"
-        ]
+        shutil.copyfile(
+            self.download_loc, os.path.join(magisk_absolute_dir, "magisk.apk")
+        )
+        shutil.copytree(
+            os.path.join(self.extract_to, "assets", "chromeos"),
+            os.path.join(magisk_absolute_dir, "chromeos"),
+            dirs_exist_ok=True,
+        )
+        assets_files = ["addon.d.sh", "boot_patch.sh", "stub.apk", "util_functions.sh"]
         for f in assets_files:
-            shutil.copyfile(os.path.join(self.extract_to, "assets", f), os.path.join(magisk_absolute_dir, f))
+            shutil.copyfile(
+                os.path.join(self.extract_to, "assets", f),
+                os.path.join(magisk_absolute_dir, f),
+            )
 
-        # Updating Magisk from Magisk manager will modify bootanim.rc, 
+        # Updating Magisk from Magisk manager will modify bootanim.rc,
         # So it is necessary to backup the original bootanim.rc.
-        bootanim_path = os.path.join(self.copy_dir, self.partition, "etc", "init", "bootanim.rc")
-        gz_filename = os.path.join(bootanim_path)+".gz"
-        with gzip.open(gz_filename,'wb') as f_gz:
-            f_gz.write(self.oringinal_bootanim.encode('utf-8'))
+        bootanim_path = os.path.join(
+            self.copy_dir, self.partition, "etc", "init", "bootanim.rc"
+        )
+        gz_filename = os.path.join(bootanim_path) + ".gz"
+        with gzip.open(gz_filename, "wb") as f_gz:
+            f_gz.write(self.oringinal_bootanim.encode("utf-8"))
         with open(bootanim_path, "w") as initfile:
-            initfile.write(self.oringinal_bootanim+self.bootanim_component)
+            initfile.write(self.oringinal_bootanim + self.bootanim_component)
 
     def set_path_perm(self, path):
         if "magisk" in path.split("/"):
@@ -122,7 +135,7 @@ on property:init.svc.zygote=stopped
     def extra1(self):
         self.delete_upper()
         self.setup()
-    
+
     # Delete the contents of upperdir
     def delete_upper(self):
         if container.use_overlayfs():
@@ -130,9 +143,9 @@ on property:init.svc.zygote=stopped
             files = [
                 "system/system/etc/init/bootanim.rc",
                 "system/system/etc/init/bootanim.rc.gz",
-                "system/system/etc/init/magisk",               
+                "system/system/etc/init/magisk",
                 "system/system/addon.d/99-magisk.sh",
-                "vendor/etc/selinux/precompiled_sepolicy"
+                "vendor/etc/selinux/precompiled_sepolicy",
             ]
 
             for f in files:
@@ -141,20 +154,22 @@ on property:init.svc.zygote=stopped
                     shutil.rmtree(file)
                 elif os.path.isfile(file) or os.path.exists(file):
                     os.remove(file)
-    
+
     def extra2(self):
         self.delete_upper()
         data_dir = get_data_dir()
         files = [
             os.path.join(data_dir, "adb/magisk.db"),
-            os.path.join(data_dir, "adb/magisk")
+            os.path.join(data_dir, "adb/magisk"),
         ]
         for file in files:
             if os.path.isdir(file):
                 shutil.rmtree(file)
             elif os.path.isfile(file):
                 os.remove(file)
-        bootanim_path = os.path.join(self.copy_dir, self.partition, "etc", "init", "bootanim.rc")
+        bootanim_path = os.path.join(
+            self.copy_dir, self.partition, "etc", "init", "bootanim.rc"
+        )
         if container.use_overlayfs():
             if os.path.exists(bootanim_path):
                 os.remove(bootanim_path)

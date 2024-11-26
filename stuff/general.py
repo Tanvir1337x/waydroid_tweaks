@@ -32,8 +32,11 @@ class General:
             return "/tmp/waydroid"
 
     def download(self):
-        Logger.info("Downloading {} now to {} .....".format(
-            self.dl_file_name, self.download_loc))
+        Logger.info(
+            "Downloading {} now to {} .....".format(
+                self.dl_file_name, self.download_loc
+            )
+        )
         loc_md5 = ""
         if os.path.isfile(self.download_loc):
             with open(self.download_loc, "rb") as f:
@@ -42,8 +45,7 @@ class General:
         while not os.path.isfile(self.download_loc) or loc_md5 != self.act_md5:
             if os.path.isfile(self.download_loc):
                 os.remove(self.download_loc)
-                Logger.warning(
-                    "md5 mismatches, redownloading now ....")
+                Logger.warning("md5 mismatches, redownloading now ....")
             loc_md5 = download_file(self.dl_link, self.download_loc)
 
     def remove(self):
@@ -68,26 +70,37 @@ class General:
 
     def add_props(self):
         bin_dir = os.path.join(self.copy_dir, "system", "etc")
-        resetprop_rc = os.path.join(
-            self.copy_dir, "system/etc/init/resetprop.rc")
+        resetprop_rc = os.path.join(self.copy_dir, "system/etc/init/resetprop.rc")
         if not os.path.isfile(os.path.join(bin_dir, "resetprop")):
             if not os.path.exists(bin_dir):
                 os.makedirs(bin_dir)
-            shutil.copy(os.path.join(os.path.join(os.path.dirname(__file__), "..", "bin",
-                        self.arch[0], "resetprop")), bin_dir)
+            shutil.copy(
+                os.path.join(
+                    os.path.join(
+                        os.path.dirname(__file__),
+                        "..",
+                        "bin",
+                        self.arch[0],
+                        "resetprop",
+                    )
+                ),
+                bin_dir,
+            )
             os.chmod(os.path.join(bin_dir, "resetprop"), 0o755)
         if not os.path.isfile(os.path.join(bin_dir, "resetprop.sh")):
             with open(os.path.join(bin_dir, "resetprop.sh"), "w") as f:
                 f.write("#!/system/bin/sh\n")
                 f.write(
-                    "while read line; do /system/etc/resetprop ${line%=*} ${line#*=}; done < /vendor/waydroid.prop\n")
+                    "while read line; do /system/etc/resetprop ${line%=*} ${line#*=}; done < /vendor/waydroid.prop\n"
+                )
             os.chmod(os.path.join(bin_dir, "resetprop.sh"), 0o755)
         if not os.path.isfile(resetprop_rc):
             if not os.path.exists(os.path.dirname(resetprop_rc)):
                 os.makedirs(os.path.dirname(resetprop_rc))
             with open(resetprop_rc, "w") as f:
                 f.write(
-                    "on post-fs-data\n    exec u:r:su:s0 root root -- /system/bin/sh /system/bin/resetprop.sh")
+                    "on post-fs-data\n    exec u:r:su:s0 root root -- /system/bin/sh /system/bin/resetprop.sh"
+                )
             os.chmod(resetprop_rc, 0o644)
 
         cfg = configparser.ConfigParser()
@@ -95,7 +108,7 @@ class General:
 
         for key in self.apply_props.keys():
             if self.apply_props[key]:
-                cfg.set('properties', key, self.apply_props[key])
+                cfg.set("properties", key, self.apply_props[key])
 
         with open("/var/lib/waydroid/waydroid.cfg", "w") as f:
             cfg.write(f)
@@ -106,10 +119,13 @@ class General:
             for file_info in apk.infolist():
                 file_name = file_info.filename
                 file_path = os.path.join(lib_dest_dir, file_name)
-                if file_info.filename.startswith(f"lib/{self.arch[0]}/") and file_name.endswith(".so"):
-                    os.makedirs(os.path.dirname(
-                        file_path), exist_ok=True)
-                    with apk.open(file_info.filename) as src_file, open(file_path, "wb") as dest_file:
+                if file_info.filename.startswith(
+                    f"lib/{self.arch[0]}/"
+                ) and file_name.endswith(".so"):
+                    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+                    with apk.open(file_info.filename) as src_file, open(
+                        file_path, "wb"
+                    ) as dest_file:
                         # Logger.info(f"{src_file} -> {dest_file}")
                         shutil.copyfileobj(src_file, dest_file)
 
@@ -156,7 +172,7 @@ class General:
         cfg.read("/var/lib/waydroid/waydroid.cfg")
 
         for key in self.apply_props.keys():
-            cfg.remove_option('properties', key)
+            cfg.remove_option("properties", key)
 
         with open("/var/lib/waydroid/waydroid.cfg", "w") as f:
             cfg.write(f)
