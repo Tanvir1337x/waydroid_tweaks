@@ -18,6 +18,14 @@ Run the main script to launch the interactive terminal interface, which appears 
 
 ### Command-Line Usage
 
+#### Nix/NixOS
+
+A Nix flake is present in the repository. Simply run:
+
+```bash
+nix run github:Tanvir1337x/waydroid_tweaks
+```
+
 #### Packages
 
 Available packages: **gapps**, **magisk**, **libndk**, **libhoudini**, **nodataperm**, **smartdock**, **microg**, and **mitm**.
