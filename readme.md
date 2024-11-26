@@ -73,7 +73,7 @@ waydroid show-full-ui
 After Waydroid has finished booting, run:
 
 ```bash
-sudo python3 main.py google
+sudo python3 main.py certified
 ```
 
 Copy the returned numeric ID, visit [this link](https://google.com/android/uncertified/?pli=1), enter the ID, and register it. Wait approximately 30 minutes for the device to get registered, then clear the Google Play Services cache and try logging in.
