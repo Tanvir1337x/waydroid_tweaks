@@ -1,6 +1,6 @@
 # About
 
-This script integrates OpenGApps, Magisk, libhoudini, and libndk translation libraries into Waydroid, enabling advanced Android app support and system modifications.
+This project contains script to integrate OpenGApps, Magisk, libhoudini, libndk translation libraries and other goodies (e.g smartdock, widevine, hidden status bar, full permission to app data) into Waydroid to enable advanced Android app support and system modifications.
 
 ## Dependencies
 
