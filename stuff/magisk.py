@@ -11,7 +11,7 @@ from tools import container
 class Magisk(General):
     id = "magisk delta"
     partition = "system"
-    dl_link = "https://github.com/mistrmochov/magiskdeltaorig/raw/main/app-release.apk"
+    dl_link = "https://github.com/HuskyDG/magisk-files/releases/download/v26.4-kitsune-2/26.4-kitsune-2.apk"
     dl_file_name = "magisk.apk"
     extract_to = "/tmp/magisk_unpack"
     magisk_dir = os.path.join(partition, "etc", "init", "magisk")
