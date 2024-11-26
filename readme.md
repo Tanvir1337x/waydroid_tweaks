@@ -42,6 +42,8 @@ You must register your device to use Google Apps. The following command displays
 sudo python3 main.py certified
 ```
 
+See this section: [#opengapps](#opengapps)
+
 #### Hacks
 
 Available hacks: **nodataperm** and **hidestatusbar**.
