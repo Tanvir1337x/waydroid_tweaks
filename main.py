@@ -288,7 +288,7 @@ def main():
     Use -h  flag for help!"""
     )
 
-    subparsers = parser.add_subparsers(title="coomand", dest="command")
+    subparsers = parser.add_subparsers(title="command", dest="command")
     parser.add_argument(
         "-a",
         "--android-version",
