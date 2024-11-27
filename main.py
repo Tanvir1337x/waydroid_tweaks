@@ -24,7 +24,7 @@ from tools import images
 from tools.logger import Logger
 
 
-def get_certified(args):
+def get_certified():
     AndroidId().get_id()
 
 
