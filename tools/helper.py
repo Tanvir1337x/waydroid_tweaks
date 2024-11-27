@@ -147,13 +147,11 @@ def check_root():
 
 def backup(path):
     gz_filename = path + ".gz"
-    with gzip.open(gz_filename, "wb") as f_gz:
-        with open(path, "rb") as f:
-            f_gz.write(f.read())
+    with gzip.open(gz_filename, "wb") as f_gz, open(path, "rb") as f:
+        f_gz.write(f.read())
 
 
 def restore(path):
     gz_filename = path + ".gz"
-    with gzip.GzipFile(gz_filename) as f_gz:
-        with open(path, "wb") as f:
-            f.writelines(f_gz)
+    with gzip.GzipFile(gz_filename) as f_gz, open(path, "wb") as f:
+        f.writelines(f_gz)
