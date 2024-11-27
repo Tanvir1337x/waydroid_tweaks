@@ -54,7 +54,7 @@ class Ndk(General):
 
     def copy(self):
         Logger.info("Copying libndk library files ...")
-        name = re.findall("([a-zA-Z0-9]+)\.zip", self.dl_link)[0]
+        name = re.findall(r"([a-zA-Z0-9]+)\.zip", self.dl_link)[0]
         shutil.copytree(
             os.path.join(
                 self.extract_to,
