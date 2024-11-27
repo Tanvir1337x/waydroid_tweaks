@@ -28,5 +28,6 @@ class HideStatusBar(General):
             os.makedirs(rro_dir)
         shutil.copyfile(self.download_loc, os.path.join(rro_dir, "hidestatusbar.apk"))
 
+    @property
     def skip_extract(self):
         return True
