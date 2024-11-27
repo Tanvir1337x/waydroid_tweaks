@@ -127,7 +127,8 @@ class General:
                     ) as dest_file:
                         shutil.copyfileobj(src_file, dest_file)
 
-    def set_path_perm(self, path):
+    @staticmethod
+    def set_path_perm(path):
         if "bin" in path.split("/"):
             perms = [0, 2000, 0o755, 0o777]
         else:

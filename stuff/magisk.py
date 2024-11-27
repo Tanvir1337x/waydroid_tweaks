@@ -136,7 +136,8 @@ on property:init.svc.zygote=stopped
         self.setup()
 
     # Delete the contents of upperdir
-    def delete_upper(self):
+    @staticmethod
+    def delete_upper():
         if container.use_overlayfs():
             sys_overlay_rw = "/var/lib/waydroid/overlay_rw"
             files = [

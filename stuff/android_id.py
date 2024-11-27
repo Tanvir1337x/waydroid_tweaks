@@ -4,7 +4,8 @@ from tools.logger import Logger
 
 
 class AndroidId:
-    def get_id(self):
+    @staticmethod
+    def get_id():
         if container.is_running():
             try:
                 queryout = shell(
