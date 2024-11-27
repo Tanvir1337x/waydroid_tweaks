@@ -3,6 +3,7 @@ from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 import argparse
 import os
+import sys
 from typing import List
 from stuff.android_id import AndroidId
 from stuff.gapps import Gapps
@@ -210,7 +211,7 @@ def interact():
         default="11",
     ).execute()
     if not android_version:
-        exit()
+        sys.exit()
     args.android_version = android_version
     action = inquirer.select(
         message="Please select an action",
@@ -219,7 +220,7 @@ def interact():
         default=None,
     ).execute()
     if not action:
-        exit()
+        sys.exit()
 
     install_choices = [
         "gapps",
