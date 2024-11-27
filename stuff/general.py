@@ -28,8 +28,7 @@ class General:
     def copy_dir(self):
         if container.use_overlayfs():
             return "/var/lib/waydroid/overlay"
-        else:
-            return "/tmp/waydroid"
+        return "/tmp/waydroid"
 
     def download(self):
         Logger.info(

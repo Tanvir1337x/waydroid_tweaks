@@ -128,7 +128,7 @@ class Gapps(General):
     def copy(self):
         if self.android_version == "11":
             return self.copy_11()
-        elif self.android_version == "13":
+        if self.android_version == "13":
             return self.copy_13()
 
     def copy_11(self):
