@@ -2,7 +2,6 @@ import gzip
 import os
 import re
 import platform
-import re
 import subprocess
 import sys
 import requests

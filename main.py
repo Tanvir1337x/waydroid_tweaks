@@ -20,9 +20,6 @@ from stuff.fdroidpriv import FDroidPriv
 import tools.helper as helper
 from tools import container
 from tools import images
-
-import argparse
-
 from tools.logger import Logger
 
 
