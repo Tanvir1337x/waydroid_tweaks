@@ -2,6 +2,8 @@
 
 This project contains script to integrate OpenGApps, Magisk, libhoudini, libndk translation libraries and other goodies (e.g smartdock, widevine, hidden status bar, full permission to app data) into Waydroid to enable advanced Android app support and system modifications.
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Tanvir1337x/waydroid_tweaks)
+
 ## Dependencies
 
 **[lzip](https://www.nongnu.org/lzip/)** is required for the script to function properly. Install it using your distribution's package manager.
