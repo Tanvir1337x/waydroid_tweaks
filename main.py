@@ -3,6 +3,7 @@ from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 import argparse
 import os
+import subprocess
 import sys
 from typing import List
 from stuff.android_id import AndroidId
@@ -198,7 +199,7 @@ def hack_option(args):
 
 
 def interact():
-    os.system("clear")
+    subprocess.run(["clear"])
     args = argparse.Namespace()
     android_version = inquirer.select(
         message="Select Android version",
