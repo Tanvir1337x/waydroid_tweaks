@@ -35,8 +35,8 @@ class General:
         loc_md5 = ""
         if os.path.isfile(self.download_loc):
             with open(self.download_loc, "rb") as f:
-                bytes = f.read()
-                loc_md5 = hashlib.md5(bytes).hexdigest()
+                _bytes = f.read()
+                loc_md5 = hashlib.md5(_bytes).hexdigest()
         while not os.path.isfile(self.download_loc) or loc_md5 != self.act_md5:
             if os.path.isfile(self.download_loc):
                 os.remove(self.download_loc)
@@ -146,8 +146,8 @@ class General:
 
         if recursive and os.path.isdir(path):
             for root, dirs, files in os.walk(path):
-                for dir in dirs:
-                    self.set_path_perm(os.path.join(root, dir))
+                for _dir in dirs:
+                    self.set_path_perm(os.path.join(root, _dir))
                 for file in files:
                     self.set_path_perm(os.path.join(root, file))
         else:
