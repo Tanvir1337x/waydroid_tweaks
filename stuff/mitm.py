@@ -16,7 +16,8 @@ class Mitm(General):
     def download(self):
         raise NotImplementedError()
 
-    def skip_extract(self):
+    @staticmethod
+    def skip_extract():
         return True
 
     def copy(self):

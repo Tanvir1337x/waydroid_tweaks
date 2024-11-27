@@ -115,7 +115,8 @@ on property:init.svc.zygote=stopped
         with open(bootanim_path, "w") as initfile:
             initfile.write(self.oringinal_bootanim + self.bootanim_component)
 
-    def set_path_perm(self, path):
+    @staticmethod
+    def set_path_perm(path):
         if "magisk" in path.split("/"):
             perms = [0, 2000, 0o755, 0o755]
         else:
