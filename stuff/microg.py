@@ -143,8 +143,7 @@ service microg_service /system/bin/sh /system/bin/npem
                     and str(self.sdk) not in sdks
                 ):
                     continue
-                else:
-                    flag = True
+                flag = True
 
             for file in files:
                 src_file_path = os.path.join(root, file)
