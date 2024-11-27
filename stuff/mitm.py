@@ -14,7 +14,7 @@ class Mitm(General):
         self.ca_cert_file = ca_cert_file
 
     def download(self):
-        pass
+        raise NotImplementedError()
 
     def skip_extract(self):
         return True

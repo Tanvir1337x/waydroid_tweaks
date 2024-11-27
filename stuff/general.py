@@ -177,13 +177,13 @@ class General:
             cfg.write(f)
 
     def copy(self):
-        pass
+        raise NotImplementedError()
 
     def extra1(self):
-        pass
+        raise NotImplementedError()
 
     def extra2(self):
-        pass
+        raise NotImplementedError()
 
     def install(self):
         self.download()
