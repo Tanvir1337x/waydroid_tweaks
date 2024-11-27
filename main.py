@@ -35,15 +35,15 @@ def mount(partition, copy_dir):
         mount_point = os.path.join(copy_dir)
     else:
         mount_point = os.path.join(copy_dir, partition)
-    Logger.info("Mounting {} to {}".format(img, mount_point))
+    Logger.info(f"Mounting {img} to {mount_point}")
     images.mount(img, mount_point)
 
 
 def resize(partition):
     img = os.path.join(images.get_image_dir(), partition + ".img")
     img_size = int(os.path.getsize(img) / (1024 * 1024))
-    new_size = "{}M".format(img_size + 500)
-    Logger.info("Resizing {} to {}".format(img, new_size))
+    new_size = f"{img_size + 500}M"
+    Logger.info(f"Resizing {img} to {new_size}")
     images.resize(img, new_size)
 
 
@@ -53,7 +53,7 @@ def umount(partition, copy_dir):
         mount_point = os.path.join(copy_dir)
     else:
         mount_point = os.path.join(copy_dir, partition)
-    Logger.info("Umounting {}".format(mount_point))
+    Logger.info(f"Umounting {mount_point}")
     images.umount(mount_point)
 
 
@@ -355,7 +355,7 @@ widevine: Add support for widevine DRM L3
     remove_parser.add_argument(
         **arg_template,
         choices=[*remove_choices, *hack_choices],
-        help="Name of app to remove"
+        help="Name of app to remove",
     )
     remove_parser.set_defaults(func=remove_app)
 

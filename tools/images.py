@@ -16,12 +16,12 @@ def umount(mount_point, exists=True):
     if not os.path.exists(mount_point):
         if not exists:
             return
-        Logger.error("{} does not exist!".format(mount_point))
+        Logger.error(f"{mount_point} does not exist!")
         raise FileNotFoundError()
     if not run(["mountpoint", mount_point]).returncode:
         run(["umount", mount_point])
     else:
-        Logger.warning("{} is not a mount point".format(mount_point))
+        Logger.warning(f"{mount_point} is not a mount point")
 
 
 def resize(img_file, size):

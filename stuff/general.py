@@ -31,11 +31,7 @@ class General:
         return "/tmp/waydroid"
 
     def download(self):
-        Logger.info(
-            "Downloading {} now to {} .....".format(
-                self.dl_file_name, self.download_loc
-            )
-        )
+        Logger.info(f"Downloading {self.dl_file_name} now to {self.download_loc} .....")
         loc_md5 = ""
         if os.path.isfile(self.download_loc):
             with open(self.download_loc, "rb") as f:
