@@ -122,7 +122,7 @@ service microg_service /system/bin/sh /system/bin/npem
             sub_arch = "arm"
         else:
             sub_arch = "x86"
-        if 64 == self.arch[1]:
+        if self.arch[1] == 64:
             arch = f"{sub_arch}{'' if sub_arch=='arm' else '_'}64"
         for root, dirs, files in os.walk(src_dir):
             flag = False
