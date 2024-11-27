@@ -172,8 +172,8 @@ service microg_service /system/bin/sh /system/bin/npem
 
     def extra2(self):
         system_dir = os.path.join(self.copy_dir, self.partition)
-        files = [key.split("_")[0] for key in self.fdroid_repo_apks.keys()]
-        files += [key.split("-")[0] for key in self.microg_apks.keys()]
+        files = [key.split("_")[0] for key in self.fdroid_repo_apks]
+        files += [key.split("-")[0] for key in self.microg_apks]
         for f in files:
             if f in self.priv_apps:
                 file = os.path.join(system_dir, "priv-app", f)
