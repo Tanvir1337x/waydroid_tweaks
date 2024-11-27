@@ -26,7 +26,7 @@ service bootanim /system/bin/bootanimation
     ioprio rt 0
     task_profiles MaxPerformance
 """
-    bootanim_component = f"""
+    bootanim_component = """
 on post-fs-data
     start logd
     exec u:r:su:s0 root root -- /system/etc/init/magisk/magiskpolicy --live --magisk
