@@ -312,7 +312,6 @@ def main():
         "widevine",
     ]
     hack_choices = ["nodataperm", "hidestatusbar"]
-    micrg_variants = ["Standard", "NoGoolag", "UNLP", "Minimal", "MinimalIAP"]
     remove_choices = install_choices
 
     arg_template = {
@@ -369,7 +368,6 @@ widevine: Add support for widevine DRM L3
     args = parser.parse_args()
     args.microg_variant = "Standard"
     if hasattr(args, "func"):
-        args_dict = vars(args)
         helper.check_root()
         args.func(args)
     else:
