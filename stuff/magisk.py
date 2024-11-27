@@ -83,7 +83,7 @@ on property:init.svc.zygote=stopped
         Logger.info("Copying magisk libs now ...")
 
         lib_dir = os.path.join(self.extract_to, "lib", self.arch[0])
-        for parent, dirnames, filenames in os.walk(lib_dir):
+        for _, _, filenames in os.walk(lib_dir):
             for filename in filenames:
                 o_path = os.path.join(lib_dir, filename)
                 filename = re.search(r"lib(.*)\.so", filename)

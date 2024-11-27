@@ -216,8 +216,7 @@ class Gapps(General):
     def copy_13(self):
         src_dir = os.path.join(self.extract_to, "system")
         dst_dir = os.path.join(self.copy_dir, self.partition)
-        for root, dirs, files in os.walk(src_dir):
-            dir_name = os.path.basename(root)
+        for root, _, files in os.walk(src_dir):
             # 遍历文件
             for file in files:
                 src_file_path = os.path.join(root, file)
