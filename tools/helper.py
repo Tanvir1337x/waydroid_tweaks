@@ -13,7 +13,7 @@ from typing import Optional
 
 def get_download_dir():
     download_loc = ""
-    if os.environ.get("XDG_CACHE_HOME", None) is None:
+    if os.environ.get("XDG_CACHE_HOME") is None:
         download_loc = os.path.join(
             "/",
             "home",
