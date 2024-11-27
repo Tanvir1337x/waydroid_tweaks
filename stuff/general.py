@@ -126,7 +126,6 @@ class General:
                     with apk.open(file_info.filename) as src_file, open(
                         file_path, "wb"
                     ) as dest_file:
-                        # Logger.info(f"{src_file} -> {dest_file}")
                         shutil.copyfileobj(src_file, dest_file)
 
     def set_path_perm(self, path):

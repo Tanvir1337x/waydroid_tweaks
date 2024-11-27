@@ -226,7 +226,6 @@ class Gapps(General):
                 )
                 if not os.path.exists(os.path.dirname(dst_file_path)):
                     os.makedirs(os.path.dirname(dst_file_path))
-                # Logger.info(f"{src_file_path} -> {dst_file_path}")
                 shutil.copy2(src_file_path, dst_file_path)
                 if os.path.splitext(dst_file_path)[1].lower() == ".apk":
                     self.extract_app_lib(dst_file_path)

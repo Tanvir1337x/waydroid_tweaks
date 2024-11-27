@@ -51,7 +51,6 @@ def run(args: list, env: Optional[str] = None, ignore: Optional[str] = None):
         args=args, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
 
-    # print(result.stdout.decode())
     if result.stderr:
         error = result.stderr.decode("utf-8")
         if ignore and re.match(ignore, error):
