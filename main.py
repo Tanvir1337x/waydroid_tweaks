@@ -3,7 +3,6 @@ from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 import argparse
 import os
-import subprocess
 import sys
 from typing import List
 from stuff.android_id import AndroidId
