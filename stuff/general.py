@@ -4,6 +4,7 @@ import os
 import shutil
 import zipfile
 import hashlib
+import tempfile
 from tools.helper import download_file, get_download_dir, host
 from tools import container
 from tools.logger import Logger
@@ -28,7 +29,7 @@ class General:
     def copy_dir(self):
         if container.use_overlayfs():
             return "/var/lib/waydroid/overlay"
-        return "/tmp/waydroid"
+        return os.path.join(tempfile.gettempdir(), "waydroid")
 
     def download(self):
         Logger.info(f"Downloading {self.dl_file_name} now to {self.download_loc} .....")

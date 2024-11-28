@@ -2,6 +2,7 @@ import gzip
 import os
 import shutil
 import re
+import tempfile
 from stuff.general import General
 from tools.helper import download_file, get_data_dir
 from tools.logger import Logger
@@ -13,7 +14,7 @@ class Magisk(General):
     partition = "system"
     dl_link = "https://github.com/HuskyDG/magisk-files/releases/download/v26.4-kitsune-2/26.4-kitsune-2.apk"
     dl_file_name = "magisk.apk"
-    extract_to = "/tmp/magisk_unpack"
+    extract_to = os.path.join(tempfile.gettempdir(), "magisk_unpack")
     magisk_dir = os.path.join(partition, "etc", "init", "magisk")
     files = ["etc/init/magisk", "etc/init/bootanim.rc"]
     oringinal_bootanim = """

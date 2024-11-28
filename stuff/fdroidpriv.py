@@ -1,5 +1,6 @@
 import os
 import shutil
+import tempfile
 from stuff.general import General
 
 
@@ -15,13 +16,13 @@ class FDroidPriv(General):
     dl_file_name = "org.fdroid.fdroid.privileged.ota_2130.zip"
     dl_link = ...
     act_md5 = ...
-    extract_to = "/tmp/fdroid_ota_2130"
+    extract_to = os.path.join(tempfile.gettempdir(), "fdroid_ota_2130")
     files = [
-        "app/F-Droid.apk"
-        "app/F-Droid/F-Droid.apk"
-        "etc/permissions/permissions_org.fdroid.fdroid.privileged.xml"
-        "priv-app/F-DroidPrivilegedExtension.apk"
-        "priv-app/F-DroidPrivilegedExtension/F-DroidPrivilegedExtension.apk"
+        "app/F-Droid.apk",
+        "app/F-Droid/F-Droid.apk",
+        "etc/permissions/permissions_org.fdroid.fdroid.privileged.xml",
+        "priv-app/F-DroidPrivilegedExtension.apk",
+        "priv-app/F-DroidPrivilegedExtension/F-DroidPrivilegedExtension.apk",
     ]
     file_map = {
         "permissions_org.fdroid.fdroid.privileged.xml": "etc/permissions/permissions_org.fdroid.fdroid.privileged.xml",

@@ -4,6 +4,7 @@ from InquirerPy.base.control import Choice
 import argparse
 import os
 import sys
+import tempfile
 from typing import List
 from stuff.android_id import AndroidId
 from stuff.gapps import Gapps
@@ -88,30 +89,29 @@ def install_app(args):
         install_list.append(FDroidPriv(args.android_version))
 
     if not container.use_overlayfs():
-        copy_dir = "/tmp/waydroid"
-        container.stop()
+        with tempfile.TemporaryDirectory() as copy_dir:
+            container.stop()
 
-        resize_system, resize_vendor = False, False
-        for item in install_list:
-            if item.partition == "system":
-                resize_system = True
-            elif item.partition == "vendor":
-                resize_vendor = True
+            resize_system, resize_vendor = False, False
+            for item in install_list:
+                if item.partition == "system":
+                    resize_system = True
+                elif item.partition == "vendor":
+                    resize_vendor = True
 
-        if resize_system:
-            resize("system")
-        if resize_vendor:
-            resize("vendor")
+            if resize_system:
+                resize("system")
+            if resize_vendor:
+                resize("vendor")
 
-        mount("system", copy_dir)
-        mount("vendor", copy_dir)
+            mount("system", copy_dir)
+            mount("vendor", copy_dir)
 
-    for item in install_list:
-        item.install()
+            for item in install_list:
+                item.install()
 
-    if not container.use_overlayfs():
-        umount("vendor", copy_dir)
-        umount("system", copy_dir)
+            umount("vendor", copy_dir)
+            umount("system", copy_dir)
 
     container.upgrade()
 
@@ -143,15 +143,14 @@ def remove_app(args):
         remove_list.append(HideStatusBar())
 
     if not container.use_overlayfs():
-        copy_dir = "/tmp/waydroid"
-        container.stop()
+        with tempfile.TemporaryDirectory() as copy_dir:
+            container.stop()
 
-    for item in remove_list:
-        item.uninstall()
+            for item in remove_list:
+                item.uninstall()
 
-    if not container.use_overlayfs():
-        umount("vendor", copy_dir)
-        umount("system", copy_dir)
+            umount("vendor", copy_dir)
+            umount("system", copy_dir)
 
     container.upgrade()
 
@@ -169,30 +168,29 @@ def hack_option(args):
         hack_list.append(HideStatusBar())
 
     if not container.use_overlayfs():
-        copy_dir = "/tmp/waydroid"
-        container.stop()
+        with tempfile.TemporaryDirectory() as copy_dir:
+            container.stop()
 
-        resize_system, resize_vendor = False, False
-        for item in hack_list:
-            if item.partition == "system":
-                resize_system = True
-            elif item.partition == "vendor":
-                resize_vendor = True
+            resize_system, resize_vendor = False, False
+            for item in hack_list:
+                if item.partition == "system":
+                    resize_system = True
+                elif item.partition == "vendor":
+                    resize_vendor = True
 
-        if resize_system:
-            resize("system")
-        if resize_vendor:
-            resize("vendor")
+            if resize_system:
+                resize("system")
+            if resize_vendor:
+                resize("vendor")
 
-        mount("system", copy_dir)
-        mount("vendor", copy_dir)
+            mount("system", copy_dir)
+            mount("vendor", copy_dir)
 
-    for item in hack_list:
-        item.install()
+            for item in hack_list:
+                item.install()
 
-    if not container.use_overlayfs():
-        umount("vendor", copy_dir)
-        umount("system", copy_dir)
+            umount("vendor", copy_dir)
+            umount("system", copy_dir)
 
     container.upgrade()
 

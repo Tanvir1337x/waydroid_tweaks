@@ -1,5 +1,6 @@
 import os
 import shutil
+import tempfile
 from stuff.general import General
 from tools.logger import Logger
 
@@ -48,7 +49,7 @@ class MicroG(General):
     act_md5 = ...
     dl_file_name = ...
     sdk = ...
-    extract_to = "/tmp/microg/extract"
+    extract_to = os.path.join(tempfile.gettempdir(), "microg", "extract")
     rc_content = """
 on property:sys.boot_completed=1
     start microg_service

@@ -1,5 +1,6 @@
 import os
 import shutil
+import tempfile
 from stuff.general import General
 from tools.helper import run
 
@@ -49,7 +50,7 @@ class Gapps(General):
     dl_link = ...
     act_md5 = ...
     dl_file_name = "gapps.zip"
-    extract_to = "/tmp/gapps/extract"
+    extract_to = os.path.join(tempfile.gettempdir(), "gapps", "extract")
     non_apks = [
         "defaultetc-common.tar.lz",
         "defaultframework-common.tar.lz",

@@ -1,6 +1,7 @@
 import os
 import re
 import shutil
+import tempfile
 from stuff.general import General
 from tools.logger import Logger
 
@@ -29,7 +30,7 @@ class Widevine(General):
         },
     }
     dl_file_name = "widevine.zip"
-    extract_to = "/tmp/widevineunpack"
+    extract_to = os.path.join(tempfile.gettempdir(), "widevineunpack")
     files = [
         "bin/hw/*widevine",
         "bin/move_widevine_data.sh",

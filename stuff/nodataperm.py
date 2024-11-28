@@ -1,6 +1,7 @@
 import os
 import re
 import shutil
+import tempfile
 from stuff.general import General
 from tools.helper import backup, restore
 from tools.logger import Logger
@@ -19,7 +20,7 @@ class Nodataperm(General):
         "13": {},
     }
     dl_file_name = "nodataperm.zip"
-    extract_to = "/tmp/nodataperm"
+    extract_to = os.path.join(tempfile.gettempdir(), "nodataperm")
     dl_link = ...
     act_md5 = ...
     partition = "system"
