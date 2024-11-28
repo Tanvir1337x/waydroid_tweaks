@@ -36,7 +36,7 @@ class General:
         if os.path.isfile(self.download_loc):
             with open(self.download_loc, "rb") as f:
                 _bytes = f.read()
-                loc_md5 = hashlib.md5(_bytes).hexdigest()
+                loc_md5 = hashlib.md5(_bytes, usedforsecurity=False).hexdigest()
         while not os.path.isfile(self.download_loc) or loc_md5 != self.act_md5:
             if os.path.isfile(self.download_loc):
                 os.remove(self.download_loc)

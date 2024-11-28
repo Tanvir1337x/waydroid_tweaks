@@ -109,7 +109,7 @@ def download_file(url, f_name):
     progress_bar.close()
     with open(f_name, "rb") as f:
         _bytes = f.read()
-        md5 = hashlib.md5(_bytes).hexdigest()
+        md5 = hashlib.md5(_bytes, usedforsecurity=False).hexdigest()
     if total_size_in_bytes not in (0, progress_bar.n):
         raise ValueError("Something went wrong while downloading")
     return md5
