@@ -81,14 +81,14 @@ class General:
                 ),
                 bin_dir,
             )
-            os.chmod(os.path.join(bin_dir, "resetprop"), 0o755)
+            os.chmod(os.path.join(bin_dir, "resetprop"), 0o700)
         if not os.path.isfile(os.path.join(bin_dir, "resetprop.sh")):
             with open(os.path.join(bin_dir, "resetprop.sh"), "w") as f:
                 f.write("#!/system/bin/sh\n")
                 f.write(
                     "while read line; do /system/etc/resetprop ${line%=*} ${line#*=}; done < /vendor/waydroid.prop\n"
                 )
-            os.chmod(os.path.join(bin_dir, "resetprop.sh"), 0o755)
+            os.chmod(os.path.join(bin_dir, "resetprop.sh"), 0o700)
         if not os.path.isfile(resetprop_rc):
             if not os.path.exists(os.path.dirname(resetprop_rc)):
                 os.makedirs(os.path.dirname(resetprop_rc))
