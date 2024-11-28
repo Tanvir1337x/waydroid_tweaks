@@ -199,7 +199,7 @@ def hack_option(args):
 
 
 def interact():
-    subprocess.run(["clear"], check=True)
+    print("\033[H\033[J")
     args = argparse.Namespace()
     android_version = inquirer.select(
         message="Select Android version",
