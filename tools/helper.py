@@ -31,12 +31,10 @@ def get_download_dir():
     return download_loc
 
 
-# not good
 def get_data_dir():
+    home_dir = os.path.expanduser("~")
     return os.path.join(
-        "/",
-        "home",
-        os.environ.get("SUDO_USER", os.environ["USER"]),
+        home_dir,
         ".local",
         "share",
         "waydroid",
