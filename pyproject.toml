@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "waydroid-tweaks"
+version = "0.1.0"
+description = "Integrate OpenGApps, Magisk, libhoudini, libndk translation libraries and other goodies (e.g smartdock, widevine, hidden status bar, full permission to app data) into Waydroid"
+authors = ["Tanvir <tanvir.ahmed.tonoy@proton.me>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11"
+tqdm = "^4.67.1"
+requests = "^2.32.3"
+inquirerpy = "^0.3.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
