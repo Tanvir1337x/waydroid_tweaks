@@ -3,7 +3,7 @@ import os
 import shutil
 import re
 import tempfile
-from stuff.general import General
+from modules.general import General
 from tools.helper import download_file, get_data_dir
 from tools.logger import Logger
 from tools import container

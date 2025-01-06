@@ -6,19 +6,19 @@ import os
 import sys
 import tempfile
 from typing import List
-from stuff.android_id import AndroidId
-from stuff.gapps import Gapps
-from stuff.general import General
-from stuff.hidestatusbar import HideStatusBar
-from stuff.houdini import Houdini
-from stuff.magisk import Magisk
-from stuff.microg import MicroG
-from stuff.mitm import Mitm
-from stuff.ndk import Ndk
-from stuff.nodataperm import Nodataperm
-from stuff.smartdock import Smartdock
-from stuff.widevine import Widevine
-from stuff.fdroidpriv import FDroidPriv
+from modules.android_id import AndroidId
+from modules.gapps import Gapps
+from modules.general import General
+from modules.hidestatusbar import HideStatusBar
+from modules.houdini import Houdini
+from modules.magisk import Magisk
+from modules.microg import MicroG
+from modules.mitm import Mitm
+from modules.ndk import Ndk
+from modules.nodataperm import Nodataperm
+from modules.smartdock import Smartdock
+from modules.widevine import Widevine
+from modules.fdroidpriv import FDroidPriv
 import tools.helper as helper
 from tools import container
 from tools import images

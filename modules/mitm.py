@@ -1,6 +1,6 @@
 import os
 import shutil
-from stuff.general import General
+from modules.general import General
 from tools.helper import run
 from tools.logger import Logger
 

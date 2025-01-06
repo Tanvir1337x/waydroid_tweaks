@@ -1,7 +1,7 @@
 import os
 import shutil
 import tempfile
-from stuff.general import General
+from modules.general import General
 from tools.logger import Logger
 
 

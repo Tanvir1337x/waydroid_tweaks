@@ -1,6 +1,6 @@
 import os
 import shutil
-from stuff.general import General
+from modules.general import General
 
 
 class HideStatusBar(General):
