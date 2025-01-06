@@ -140,7 +140,10 @@ def host():
 def check_root():
     if os.geteuid() != 0:
         Logger.error("This script must be run as root. Aborting.")
+        Logger.info("Please run the script with 'sudo' or as the root user.")
         sys.exit(1)
+    else:
+        Logger.info("Script is running with root privileges.")
 
 
 def backup(path):
